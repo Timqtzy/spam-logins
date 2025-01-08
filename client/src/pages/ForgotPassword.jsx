@@ -19,7 +19,6 @@ const ForgotPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Reset error state
     setMessage(""); // Reset message state
 
     const data = { email };
