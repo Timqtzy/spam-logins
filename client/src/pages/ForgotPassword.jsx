@@ -24,9 +24,9 @@ const ForgotPassword = () => {
 
     const data = { email };
     console.log("Data being sent:", data); // Check this in the console
-
+    const apiUrl = import.meta.env.VITE_API_URL;
     try {
-      const response = await fetch("http://localhost:5000/api/forgotpassword", {
+      const response = await fetch(`${apiUrl}/api/forgotpassword`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

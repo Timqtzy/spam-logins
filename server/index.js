@@ -12,6 +12,13 @@ const app = express();
 app.use(express.json());
 app.use(cors()); // Enable CORS
 
+const corsOptions = {
+  origin: "https://spam-admin.vercel.app/", // or use your frontend URL here
+  methods: "GET,POST",
+};
+
+app.use(cors(corsOptions));
+
 // MongoDB connection
 const uri = process.env.MONGODB_URI;
 mongoose
@@ -105,8 +112,9 @@ app.post("/api/forgotpassword", async (req, res) => {
         pass: process.env.EMAIL_PASS, // your email password or app-specific password
       },
     });
+    const PORT = process.env.PORT || 5000;
 
-    const resetUrl = `http://localhost:3000/reset-password/${resetToken}`;
+    const resetUrl = `${PORT}/reset-password/${resetToken}`;
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: email,
