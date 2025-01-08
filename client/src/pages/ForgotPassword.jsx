@@ -4,6 +4,7 @@ import Logo from "../assets/SpamLogo.png";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
   const [showToast, setShowToast] = useState(false);
   const [toastType, setToastType] = useState(""); // success, error
 
@@ -19,12 +20,15 @@ const ForgotPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(""); // Reset error state
     setMessage(""); // Reset message state
 
     const data = { email };
     console.log("Data being sent:", data); // Check this in the console
-    const apiUrl = import.meta.env.VITE_API_URL;
     try {
+      const apiUrl = import.meta.env.VITE_API_URL;
+      console.log("API URL:", apiUrl); // Ensure this prints the correct URL
+
       const response = await fetch(`${apiUrl}/api/forgotpassword`, {
         method: "POST",
         headers: {
