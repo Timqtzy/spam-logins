@@ -19,7 +19,6 @@ const Login = () => {
       setShowToast(false);
     }, 3000);
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const loginData = {
@@ -29,7 +28,6 @@ const Login = () => {
 
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
-
       const response = await fetch(`${apiUrl}/api/login`, {
         method: "POST",
         headers: {
@@ -39,6 +37,8 @@ const Login = () => {
       });
 
       const data = await response.json();
+
+      console.log("Response data:", data); // Log response data
 
       if (data.success) {
         console.log("Login Successful!");
