@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(cors()); // Enable CORS
 
 const corsOptions = {
-  origin: "https://spam-admin.vercel.app/", // or use your frontend URL here
+  origin: "https://spam-admin.vercel.app", // or use your frontend URL here
   methods: "GET,POST",
 };
 
