@@ -6,11 +6,13 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const nodemailer = require("nodemailer");
+const axios = require("axios");
 const crypto = require("crypto"); // To generate reset token
 
 const app = express();
 app.use(express.json());
 app.use(cors()); // Enable CORS
+const PORT = process.env.PORT || 5000;
 
 const corsOptions = {
   origin: "https://spam-admin.vercel.app", // or use your frontend URL here
@@ -112,7 +114,6 @@ app.post("/api/forgotpassword", async (req, res) => {
         pass: process.env.EMAIL_PASS, // your email password or app-specific password
       },
     });
-    const PORT = process.env.PORT || 5000;
 
     const resetUrl = `${PORT}/reset-password/${resetToken}`;
     const mailOptions = {
@@ -164,7 +165,7 @@ app.post("/api/reset-password", async (req, res) => {
   res.json({ success: true, message: "Password reset successfully" });
 });
 
-// Start server
-app.listen(5000, () => {
-  console.log("Server is running on port 5000");
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
