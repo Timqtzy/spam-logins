@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/SpamLogo.png";
+import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -19,6 +20,7 @@ const Login = () => {
       setShowToast(false);
     }, 3000);
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const loginData = {
@@ -28,15 +30,13 @@ const Login = () => {
 
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
-      const response = await fetch(`${apiUrl}/api/login`, {
-        method: "POST",
+      const response = await axios.post(`${apiUrl}/api/login`, loginData, {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(loginData),
       });
 
-      const data = await response.json();
+      const data = response.data;
 
       console.log("Response data:", data); // Log response data
 
@@ -49,6 +49,7 @@ const Login = () => {
       }
     } catch (error) {
       console.error("Error during login: ", error);
+      showToastNotification("An error occurred during login", "error");
     }
   };
 
